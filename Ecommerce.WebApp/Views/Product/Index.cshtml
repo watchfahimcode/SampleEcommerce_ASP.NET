@@ -1,0 +1,35 @@
+﻿@model ICollection<ProductListViewModel>
+
+<h4> Product List</h4>
+
+@{
+    int slNo = 0;
+}
+
+<a asp-action="Create" class="btn btn-primary">Add New</a>
+<table class="table tabletable-striped table-bordered table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Price</th>
+            <th scope="col">Category</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@(++slNo)</td>
+                <td>@product.Name</td>
+                <td>@product.Description</td>
+                <td>@product.Price</td>
+                <td>@product.Category</td>
+                <td>View | <a asp-action="Edit" asp-route-id="@product.Id">Edit</a> | Remove</td>
+            </tr>
+        }
+
+    </tbody>
+</table>

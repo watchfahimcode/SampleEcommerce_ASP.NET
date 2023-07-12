@@ -1,0 +1,34 @@
+﻿
+@model ICollection<CustomerListViewModel>
+
+<h4> Customer List</h4>
+
+@{
+    int slNo = 0;
+}
+
+<a asp-action="Create" class="btn btn-primary">Add New</a>
+<table class="table tabletable-striped table-bordered table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        @foreach(var customer in Model)
+        {
+            <tr>
+                <td>@(++slNo)</td>
+                <td>@customer.Name</td>
+                <td>@customer.Email</td>            
+                <td>@customer.Phone</td>
+                <td>View | <a asp-action="Edit" asp-route-id="@customer.Id" >Edit</a> | Remove</td>
+            </tr>
+        }
+
+    </tbody>
+</table>
