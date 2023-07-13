@@ -1,11 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Ecommerce.WebApp.Models
+namespace Ecommerce.Models.UtilityModels
 {
-    public class ProductListViewModel
+    public class ProductSearchCriteria
     {
-        public int Id { get; set; }
-
+    
         [Required]
         public string Name { get; set; }
         [Required]
@@ -13,6 +17,5 @@ namespace Ecommerce.WebApp.Models
         public string Price { get; set; }
         [Required]
         public string Category { get; set; }
-
     }
 }

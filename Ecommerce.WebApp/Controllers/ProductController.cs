@@ -1,6 +1,8 @@
 ﻿using Ecommerce.Models.EntityModels;
+using Ecommerce.Models.UtilityModels;
 using Ecommerce.Repository;
 using Ecommerce.WebApp.Models;
+using Ecommerce.WebApp.Models.ProductList;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
 using System.Net.WebSockets;
@@ -16,11 +18,11 @@ namespace Ecommerce.WebApp.Controllers
         {
             _productRepository = new ProductRepository();
         }
-        public IActionResult Index()
+        public IActionResult Index(ProductSearchCriteria productSearchCriteria)
         {
             var products = _productRepository.GetAll();
 
-            ICollection<ProductListViewModel>productModels = products.Select(c=> new ProductListViewModel()
+            ICollection<ProductListItem>productModels = products.Select(c=> new ProductListItem()
             {
                 Id = c.Id,
                 Name = c.Name,
@@ -30,7 +32,10 @@ namespace Ecommerce.WebApp.Controllers
 
             }).ToList();
 
-            return View(productModels);
+            var productListModel = new ProductListViewModel();
+            productListModel.ProductList = productModels;
+
+            return View(productListModel);
         }
 
         public IActionResult Create()

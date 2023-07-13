@@ -1,6 +1,8 @@
 ﻿using Ecommerce.Models.EntityModels;
+using Ecommerce.Models.UtilityModels;
 using Ecommerce.Repository;
 using Ecommerce.WebApp.Models;
+using Ecommerce.WebApp.Models.CustomerList;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata.Ecma335;
 
@@ -17,11 +19,11 @@ namespace Ecommerce.WebApp.Controllers
         }
 
 
-        public IActionResult Index()
+        public IActionResult Index(CustomerSearchCriteria customerSearchCriteria)
         {
             var customers = _customerRepository.GetAll();
 
-            ICollection<CustomerListViewModel> customerModels = customers.Select(c=> new CustomerListViewModel()
+            ICollection<CustomerListItem> customerModels = customers.Select(c=> new CustomerListItem()
             {
                 Id = c.Id,
                 Name = c.Name,
@@ -30,7 +32,10 @@ namespace Ecommerce.WebApp.Controllers
 
             }).ToList();
 
-            return View(customerModels);
+            var customerListModel = new CustomerListViewModel();
+            customerListModel.CustomerList = customerModels;
+
+            return View(customerListModel);
 
         }
 
